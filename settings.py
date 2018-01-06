@@ -64,7 +64,7 @@ pluginpackages = {
     # additional read-only entry point. This way consumers can also perform
     # GET requests at '/pluginpackages/<name>'.
     'additional_lookup': {
-        'url': 'regex("[\w]+")',
+        'url': 'regex("[\w]+")', # TODO: modify to allow '.'
         'field': 'name'
     },
 

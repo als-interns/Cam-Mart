@@ -13,14 +13,14 @@ data = [
     #         'version': '0.1.0'},
     #     'installuri': 'pipgit://bitbucket.org/lbl-camera/xicam2.plugins.ipython',
     #     },
-        {'name': 'Log',
-         'plugins': ['LogPlugin'],
+        {'name': 'SAXS',
+         'plugins': ['SAXSPlugin'],
          'documentation': {
-             'description': 'A logging display which exposes history of logged messages for debugging purposes.',
-             'keywords': ['debug', 'log'],
+             'description': 'A package of plugins for SAXS/WAXS data reduction.',
+             'keywords': ['SAXS', 'WAXS', 'scattering'],
              'authors': ['Ronald J. Pandolfi'],
              'version': '0.1.0'},
-         'installuri': 'pipgit://github.com/ronpandolfi/xicam.plugins.log.git',
+         'installuri': 'pipgit://github.com/lbl-camera/Xi-cam.plugins.SAXS.git',
          }
         ]
 
