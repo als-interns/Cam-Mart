@@ -25,7 +25,6 @@
           <b-card class="p-3">
             <h3 class="mb-4">IPython Information:</h3>
             <div class="text">
-              
             </div>
           </b-card>
         </b-col>
