@@ -10,11 +10,11 @@
       <b-row align-h="center" class="mt-5">
         <b-col cols="12">
           <b-card class="p-3">
-            <h3 class="mb-4">Cam-Mart Plugins:</h3>
-            <a href="http://cam.lbl.gov:5000/pluginpackages?where={%22name%22:%22xicam.IPython%22}" class="button" style="margin:54px;">Ipython</a>
-            <a href="http://cam.lbl.gov:5000/pluginpackages?where={%22name%22:%22xicam.Log%22}" class="button" style="margin:54px;">Log</a>
-            <a href="http://cam.lbl.gov:5000/pluginpackages?where={%22name%22:%22xicam.ThreadMonitor%22}" class="button" style="margin:54px;">Thread Monitor</a>
-            <a href="http://cam.lbl.gov:5000/pluginpackages?where={%22name%22:%22xicam.SAXS%22}" class="button" style="margin:54px;">SAXS</a>
+            <h3 class="mb-4">Cam-Mart Plugin Installation:</h3>
+            <a href="https://pypi.org/project/xicam.ipython/#files" class="button" style="margin:54px;" target="_blank">Ipython</a>
+            <a href="https://pypi.org/project/xicam.log/" class="button" style="margin:54px;" target="_blank">Log</a>
+            <a href="https://pypi.org/project/xicam.threadmonitor/" class="button" style="margin:54px;" target="_blank">Thread Monitor</a>
+            <a href="https://pypi.org/project/xicam.SAXS/" class="button" style="margin:54px;" target="_blank">SAXS</a>
           </b-card>
         </b-col>
       </b-row>
@@ -25,6 +25,9 @@
           <b-card class="p-3">
             <h3 class="mb-4">IPython Information:</h3>
             <div class="text">
+              <p>Name: xicam.Ipython</p>
+              <p>Description: An IPython console interface which exposes all internal variables of Xi-cam. You can use this to freely manipulate data in Xi-cam.</p>
+              <p>Version: 0.1.0</p>
             </div>
           </b-card>
         </b-col>
@@ -36,6 +39,9 @@
           <b-card class="p-3">
             <h3 class="mb-4">Log Information:</h3>
             <div class="text">
+              <p>Name: xicam.log</p>
+              <p>Description: A logging display which exposes history of logged messages for debugging purposes.</p>
+              <p>Version: 0.1.0</p>
             </div>
           </b-card>
         </b-col>
@@ -47,6 +53,9 @@
           <b-card class="p-3">
             <h3 class="mb-4">Thread Monitor Information:</h3>
             <div class="text">
+              <p>Name: xicam.threadmonitor</p>
+              <p>Description: A built-in plugin for tracking status of threads.</p>
+              <p>Version: 0.1.0</p>
             </div>
           </b-card>
         </b-col>
@@ -58,6 +67,9 @@
           <b-card class="p-3">
             <h3 class="mb-4">SAXS Information:</h3>
             <div class="text">
+              <p>Name: xicam.SAXS</p>
+              <p>Description: A package of plugins for SAXS/WAXS data reduction.</p>
+              <p>Version: 0.1.0</p>
             </div>
           </b-card>
         </b-col>
@@ -77,7 +89,6 @@
   .nav-background {
     background: #353535;
   }
-
   .button {
     font-family: "proxima nova";
     font-weight: 100;
@@ -97,8 +108,16 @@
 
   }
 
-  text {
-
+  .text {
+    background: #c7c3c3;
+    font-family: "proxima nova";
+    font-weight: 100;
+    font-size: 20px;
+    text-align: left;
+    color: #000000;
+    border: solid 2px #f0eded;
+    border-radius: 10px;
+    padding: 10px 20px;
   }
 
  
