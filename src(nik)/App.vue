@@ -74,7 +74,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://131.243.88.16:5000/plugins')//change this to official plugin link
+    axios.get('http://localhost:5000/plugins')//change this to official plugin link
       .then(response => (this.values = response.data))
   }
 }
