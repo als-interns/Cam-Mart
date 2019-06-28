@@ -2,24 +2,41 @@
   <div id="app">
     <router-view/>
     <h1> {{ msg }} </h1>
+	<div class="modal-mask" v-if="show">
+	  <div class="modal-box" style="padding:20px;">
+	  <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
+	    <div style="line-height:5px;">
+		<p class="title"><b>{{ information.pluginname }}</b></p>
+		<p>by:</p>
+		<li class='theauthors' v-for="author in information.authors"> {{ author }}, </li>
+		<br></br>
+		<p>Version {{ information.version }} </p>
+		<p style="font-size:14px">Created on {{ information.datecreated }}, last updated on {{ information.dateupdated }}
+		<hr>
+		</div>
+		<p> {{ information.desc }} </p>
+		<p>Install by: {{ information.install }} </p>
+		<p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
+	  </div>
+	</div>
     <li v-for="item in values._items" style="list-style: none;">
-    <button class="plugins" v-on:click="display = item.documentation.description; show = true;">
-      {{ item.plugins[0] }}
+    <button class="plugins" v-on:click="display = item.documentation.description; show = true; displayinfo(item)">
+      {{ item.name }}
     </button>
     </li>
-    <p v-if="show"> {{ display }}
-    <button v-on:click="show = false">X</button>
     <div class = "pages">
     <button class="back" v-if="page != 1" v-on:click="page -= 1"> <--Previous Page </button>
     {{ page }}
     <button class="next" v-on:click="page += 1"> Next Page--> </button>
     </div>
-    </p>
+    
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
 export default {
   name: 'App',
@@ -30,11 +47,34 @@ export default {
       msg: 'plugins',
       show: false,
       page: 1,
-      test: 1
+      test: 1, 
+	  information:{
+	    'pluginname':'',
+	    'authors':{},
+	    'etag':'',
+	    'id':'',
+	    'version':'',
+	    'dateupdated':'',
+	    'install':'',
+	    'desc':'',
+	    'datecreated':''
+	  },
+	  displayinfo: function(plugin){
+		this.information.pluginname = plugin.name
+		this.information.authors=plugin.documentation.authors
+		this.information.etag=plugin._etag
+		this.information.id=plugin._id
+		this.information.version=plugin.documentation.version
+		this.information.dateupdated=plugin._updated
+		this.information.install=plugin.installuri
+		this.information.desc=plugin.documentation.description
+		this.information.datecreated=plugin._created
+		//make request for the display info for a plugin
+	  }
     }
   },
   mounted () {
-    axios.get('http://131.243.88.16:5000/plugins')
+    axios.get('http://131.243.88.16:5000/plugins')//change this to official plugin link
       .then(response => (this.values = response.data))
   }
 }
@@ -45,6 +85,7 @@ export default {
 .plugins{
 background-color:white;
 border-style:groove;
+color:black;
 margin: 0px;
 height:50px;
 width:100%;
@@ -55,7 +96,12 @@ cursor:pointer;
 text-align: left;
 }
 .plugins:hover{
-background-color:#cecece;
+background-color:#808080;
+color:white;
+}
+
+.plugins:active{
+background-color:#666666;
 }
 .next{
 float:right;
@@ -65,5 +111,45 @@ text-align:center
 }
 .back{
 float:left;
+}
+.modal-mask{
+position:fixed;
+z-index: 9998;
+width:100%;
+height:100%;
+background-color: rgba(0, 0, 0, 0.5);
+overflow: scroll;
+}
+.modal-box{
+position: center;
+width:50%;
+height:80%;
+top:50px;
+margin-right:auto;
+margin-left:auto;
+margin-top:20px;
+margin-bottom:auto;
+background-color: #fff;
+overflow: scroll;
+}
+.closer{
+border-radius: 100px;
+background-color: #ff0000;
+border-style:solid;
+}
+.closer:hover{
+background-color:#bd0000;
+cursor: pointer;
+}
+.title{
+text-align:center;
+font-size:30px;
+}
+.theauthors{
+distplay:inline;
+list-style:none;
+}
+button{
+cursor: pointer;
 }
 </style>
