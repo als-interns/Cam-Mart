@@ -21,6 +21,23 @@
     </b-container>
     <b-container>
       <b-row align-h="center" class="mt-5">
+        <b-col cols="3">
+          <b-card class="p-3">
+            <h3 class="mb-2"></h3>
+              <div>
+                <b-dropdown id="dropdown-1" text="Plugin Information" class="m-md-1">
+                  <b-dropdown-item>IPython</b-dropdown-item>
+                  <b-dropdown-item>Log</b-dropdown-item>
+                  <b-dropdown-item>Thread Monitor</b-dropdown-item>
+                   <b-dropdown-item>SAXS</b-dropdown-item>
+                </b-dropdown>
+              </div>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container>
+      <b-row align-h="center" class="mt-5">
         <b-col cols="12">
           <b-card class="p-3">
             <h3 class="mb-4">IPython Information:</h3>
@@ -119,6 +136,8 @@
     border-radius: 10px;
     padding: 10px 20px;
   }
+
+
 
  
 </style>
