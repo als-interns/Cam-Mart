@@ -1,3 +1,6 @@
+#since I can't access lbl plugins with vue i just resend them localy and request from there. 
+#CORS isn't going to be an issue since both will be in the same origin, right?
+
 import requests
 from flask import Flask, jsonify
 from flask_cors import CORS
