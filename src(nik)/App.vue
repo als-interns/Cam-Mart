@@ -26,7 +26,7 @@
     </li>
     </div>
     <div class = "pages">
-    <button class="back" v-bind:class="{'page1':ispageone }" v-on:click="backpage();"> <--Previous Page </button>
+    <button class="back" v-bind:class="{'page1':ispageone }" v-on:click="backpage();"> &lt;--Previous Page </button>
     {{ page }}
     <button class="next" v-on:click="page += 1; ispageone = false"> Next Page--> </button>
     </div>
@@ -90,7 +90,7 @@ export default {
 
 <style>
 .plugins{
-background-color:white;
+background-color:#fafafa;
 border-style:groove;
 color:black;
 margin: -1px;
