@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-    <h1> {{ msg }} </h1>
+    <h1> {{ title }} </h1>
     <div class="modal-mask" v-if="show">
     <div class="modal-box" style="padding:20px;">
       <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
@@ -9,9 +9,8 @@
         <p class="title"><b>{{ information.pluginname }}</b></p>
         <p>by:</p>
         <li class='theauthors' v-for="author in information.authors"> {{ author }}, </li>
-        <br>
         <p>Version {{ information.version }} </p>
-        <p style="font-size:14px">Created on {{ information.datecreated }}, last updated on {{ information.dateupdated }}
+        <p style="font-size:14px">Created on {{ information.datecreated }},<br> last updated on {{ information.dateupdated }}
         <hr>
         </div>
         <p> {{ information.desc }} </p>
@@ -21,7 +20,7 @@
     </div>
     <div class="plugin-boxes">
     <li v-for="item in values._items" style="list-style: none;">
-    <button class="plugins" v-on:click="display = item.documentation.description; show = true; displayinfo(item)">
+    <button class="plugins" v-on:click="show = true; displayinfo(item)">
       {{ item.name }}
     </button>
     </li>
@@ -44,11 +43,10 @@ export default {
   data () {
     return {
       values: {},
-      display: '',
-      msg: 'plugins',
+      title: 'plugins',
       show: false,
       page: 1,
-	  ispageone: true,
+      ispageone: true,
       information: {
         'pluginname': '',
         'authors': {},
@@ -72,14 +70,14 @@ export default {
         this.information.datecreated = plugin._created
         // make request for the display info for a plugin
       },
-	  backpage: function (){
-	  if (this.page != 1){
-	  this.page -= 1
-	  }
-	  if(this.page == 1){
-	  this.ispageone = true;
-	  }
-	  }
+      backpage: function () {
+        if (this.page !== 1) {
+          this.page -= 1
+        }
+        if (this.page === 1) {
+          this.ispageone = true
+        }
+      }
     }
   },
   mounted () {
@@ -95,7 +93,7 @@ export default {
 background-color:white;
 border-style:groove;
 color:black;
-margin: none;
+margin: -1px;
 height:50px;
 width:100%;
 padding-right:100px;
