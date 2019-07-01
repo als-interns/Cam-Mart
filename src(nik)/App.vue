@@ -2,34 +2,35 @@
   <div id="app">
     <router-view/>
     <h1> {{ msg }} </h1>
-	<div class="modal-mask" v-if="show">
-	  <div class="modal-box" style="padding:20px;">
-	  <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
-	    <div style="line-height:5px;">
-		<p class="title"><b>{{ information.pluginname }}</b></p>
-		<p>by:</p>
-		<li class='theauthors' v-for="author in information.authors"> {{ author }}, </li>
-		<br></br>
-		<p>Version {{ information.version }} </p>
-		<p style="font-size:14px">Created on {{ information.datecreated }}, last updated on {{ information.dateupdated }}
-		<hr>
-		</div>
-		<p> {{ information.desc }} </p>
-		<p>Install by: {{ information.install }} </p>
-		<p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
-	  </div>
-	</div>
+    <div class="modal-mask" v-if="show">
+    <div class="modal-box" style="padding:20px;">
+      <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
+        <div style="line-height:5px;">
+        <p class="title"><b>{{ information.pluginname }}</b></p>
+        <p>by:</p>
+        <li class='theauthors' v-for="author in information.authors"> {{ author }}, </li>
+        <br>
+        <p>Version {{ information.version }} </p>
+        <p style="font-size:14px">Created on {{ information.datecreated }}, last updated on {{ information.dateupdated }}
+        <hr>
+        </div>
+        <p> {{ information.desc }} </p>
+        <p>Install by: {{ information.install }} </p>
+        <p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
+      </div>
+    </div>
+    <div class="plugin-boxes">
     <li v-for="item in values._items" style="list-style: none;">
     <button class="plugins" v-on:click="display = item.documentation.description; show = true; displayinfo(item)">
       {{ item.name }}
     </button>
     </li>
+    </div>
     <div class = "pages">
     <button class="back" v-if="page != 1" v-on:click="page -= 1"> <--Previous Page </button>
     {{ page }}
     <button class="next" v-on:click="page += 1"> Next Page--> </button>
     </div>
-    
   </div>
 </template>
 
@@ -47,34 +48,33 @@ export default {
       msg: 'plugins',
       show: false,
       page: 1,
-      test: 1, 
-	  information:{
-	    'pluginname':'',
-	    'authors':{},
-	    'etag':'',
-	    'id':'',
-	    'version':'',
-	    'dateupdated':'',
-	    'install':'',
-	    'desc':'',
-	    'datecreated':''
-	  },
-	  displayinfo: function(plugin){
-		this.information.pluginname = plugin.name
-		this.information.authors=plugin.documentation.authors
-		this.information.etag=plugin._etag
-		this.information.id=plugin._id
-		this.information.version=plugin.documentation.version
-		this.information.dateupdated=plugin._updated
-		this.information.install=plugin.installuri
-		this.information.desc=plugin.documentation.description
-		this.information.datecreated=plugin._created
-		//make request for the display info for a plugin
-	  }
+      information: {
+        'pluginname': '',
+        'authors': {},
+        'etag': '',
+        'id': '',
+        'version': '',
+        'dateupdated': '',
+        'install': '',
+        'desc': '',
+        'datecreated': ''
+      },
+      displayinfo: function (plugin) {
+        this.information.pluginname = plugin.name
+        this.information.authors = plugin.documentation.authors
+        this.information.etag = plugin._etag
+        this.information.id = plugin._id
+        this.information.version = plugin.documentation.version
+        this.information.dateupdated = plugin._updated
+        this.information.install = plugin.installuri
+        this.information.desc = plugin.documentation.description
+        this.information.datecreated = plugin._created
+        // make request for the display info for a plugin
+      }
     }
   },
   mounted () {
-    axios.get('http://localhost:5000/plugins')//change this to official plugin link
+    axios.get('http://localhost:5000/plugins') // change this to official plugin link
       .then(response => (this.values = response.data))
   }
 }
@@ -130,7 +130,7 @@ margin-left:auto;
 margin-top:20px;
 margin-bottom:auto;
 background-color: #fff;
-overflow: scroll;
+overflow: auto;
 }
 .closer{
 border-radius: 100px;
@@ -151,5 +151,8 @@ list-style:none;
 }
 button{
 cursor: pointer;
+}
+.plugin-boxes{
+overflow-y:scroll;
 }
 </style>
