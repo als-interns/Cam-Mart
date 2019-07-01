@@ -5,7 +5,7 @@
     <div class="modal-mask" v-if="show">
     <div class="modal-box" style="padding:20px;">
       <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
-        <div style="line-height:5px;">
+        <div style="line-height:10px;">
         <p class="title"><b>{{ information.pluginname }}</b></p>
         <p>by:</p>
         <li class='theauthors' v-for="author in information.authors"> {{ author }}, </li>
@@ -27,9 +27,9 @@
     </li>
     </div>
     <div class = "pages">
-    <button class="back" v-if="page != 1" v-on:click="page -= 1"> <--Previous Page </button>
+    <button class="back" v-bind:class="{'page1':ispageone }" v-on:click="backpage();"> <--Previous Page </button>
     {{ page }}
-    <button class="next" v-on:click="page += 1"> Next Page--> </button>
+    <button class="next" v-on:click="page += 1; ispageone = false"> Next Page--> </button>
     </div>
   </div>
 </template>
@@ -48,6 +48,7 @@ export default {
       msg: 'plugins',
       show: false,
       page: 1,
+	  ispageone: true,
       information: {
         'pluginname': '',
         'authors': {},
@@ -70,7 +71,15 @@ export default {
         this.information.desc = plugin.documentation.description
         this.information.datecreated = plugin._created
         // make request for the display info for a plugin
-      }
+      },
+	  backpage: function (){
+	  if (this.page != 1){
+	  this.page -= 1
+	  }
+	  if(this.page == 1){
+	  this.ispageone = true;
+	  }
+	  }
     }
   },
   mounted () {
@@ -86,7 +95,7 @@ export default {
 background-color:white;
 border-style:groove;
 color:black;
-margin: 0px;
+margin: none;
 height:50px;
 width:100%;
 padding-right:100px;
@@ -112,6 +121,9 @@ text-align:center
 .back{
 float:left;
 }
+.page1{
+cursor: not-allowed !important;
+}
 .modal-mask{
 position:fixed;
 z-index: 9998;
@@ -122,7 +134,7 @@ overflow: scroll;
 }
 .modal-box{
 position: center;
-width:50%;
+width:60%;
 height:80%;
 top:50px;
 margin-right:auto;
@@ -131,6 +143,7 @@ margin-top:20px;
 margin-bottom:auto;
 background-color: #fff;
 overflow: auto;
+line-height: auto;
 }
 .closer{
 border-radius: 100px;
