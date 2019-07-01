@@ -5,7 +5,7 @@
     <div class="modal-mask" v-if="show">
     <div class="modal-box" style="padding:20px;">
       <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
-        <div style="line-height:10px;">
+        <div>
         <p class="title"><b>{{ information.pluginname }}</b></p>
         <p>by:</p>
         <li class='theauthors' v-for="author in information.authors"> {{ author }}, </li>
