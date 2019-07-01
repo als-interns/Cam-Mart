@@ -59,7 +59,7 @@ export default {
         'datecreated': ''
       },
       displayinfo: function (plugin) {
-        this.information.pluginname = plugin.name
+        this.information.pluginname = plugin.name.substring(6)
         this.information.authors = plugin.documentation.authors
         this.information.etag = plugin._etag
         this.information.id = plugin._id
