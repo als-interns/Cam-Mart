@@ -19,11 +19,11 @@
     </div>
     <div class="modal-mask" v-if="showlogin">
         <div class="modal-box">
-        <button class="closer" v-on:click="showlogin = false;" style="float:right;"><b>X</b></button>
+        <button class="closer" v-on:click="showlogin = false;input.username='';input.password='';" style="float:right;"><b>X</b></button>
         <p class = "title"><b>Login</b></p>
         <input type="text" name="username" v-model="input.username" placeholder="Username" />
         <br>
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
+        <input class="password" type="password" name="password" v-model="input.password" placeholder="Password" />
         <br>
         <button class="loginbtn">Login!</button>
     </div>
@@ -210,4 +210,5 @@ margin:10px;
 .loginbtn{
 margin:10px;
 }
+
 </style>
