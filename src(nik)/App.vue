@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-	<div class="modal-mask" v-if="show">
+    <div class="modal-mask" v-if="show">
     <div class="modal-box" style="padding:20px;">
       <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
         <div>
@@ -17,15 +17,26 @@
         <p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
       </div>
     </div>
-	<div class="header">
-	  <div class="top">
-	    <ul class="navigation">
-		<li class="login"> <button>Login</button></li>
-		<li><button>Logout</button></li>
-		</ul>
-	  </div>
-    <h1> {{ title }} </h1>
+	<div class="modal-mask" v-if="showlogin">
+		<div class="modal-box">
+		<button class="closer" v-on:click="showlogin = false;" style="float:right;"><b>X</b></button>
+		<p class = "title"><b>Login</b></p>
+		<input type="text" name="username" v-model="input.username" placeholder="Username" />
+		<br>
+		<input type="password" name="password" v-model="input.password" placeholder="Password" />
+		<br>
+		<button class="loginbtn">Login!</button>
+		</div>
 	</div>
+    <div class="header">
+      <div class="top">
+        <ul class="navigation">
+          <li class="login"> <button v-on:click="showlogin=true">Login</button></li>
+          <li><button>Logout</button></li>
+        </ul>
+      </div>
+    <h1> {{ title }} </h1>
+    </div>
     <div class="plugin-boxes">
     <li v-for="item in values._items" style="list-style: none;">
     <button class="plugins" v-on:click="show = true; displayinfo(item)">
@@ -53,8 +64,13 @@ export default {
       values: {},
       title: 'plugins',
       show: false,
+	  showlogin:false,
       page: 1,
       ispageone: true,
+	  input: {
+	  username: '',
+	  password: ''
+	  },
       information: {
         'pluginname': '',
         'authors': {},
@@ -122,7 +138,7 @@ background-color:#666666;
 float:right;
 }
 .pages{
-text-align:center
+text-align:center;
 }
 .back{
 float:left;
@@ -187,5 +203,11 @@ padding: 10px 5px 10px 0px;
 background-color:#f2f2f2;
 border-radius:5px;
 padding: 5px;
+}
+input{
+margin:10px;
+}
+.loginbtn{
+margin:10px;
 }
 </style>
