@@ -17,17 +17,17 @@
         <p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
       </div>
     </div>
-	<div class="modal-mask" v-if="showlogin">
-		<div class="modal-box">
-		<button class="closer" v-on:click="showlogin = false;" style="float:right;"><b>X</b></button>
-		<p class = "title"><b>Login</b></p>
-		<input type="text" name="username" v-model="input.username" placeholder="Username" />
-		<br>
-		<input type="password" name="password" v-model="input.password" placeholder="Password" />
-		<br>
-		<button class="loginbtn">Login!</button>
-		</div>
-	</div>
+    <div class="modal-mask" v-if="showlogin">
+        <div class="modal-box">
+        <button class="closer" v-on:click="showlogin = false;" style="float:right;"><b>X</b></button>
+        <p class = "title"><b>Login</b></p>
+        <input type="text" name="username" v-model="input.username" placeholder="Username" />
+        <br>
+        <input type="password" name="password" v-model="input.password" placeholder="Password" />
+        <br>
+        <button class="loginbtn">Login!</button>
+    </div>
+    </div>
     <div class="header">
       <div class="top">
         <ul class="navigation">
@@ -64,13 +64,13 @@ export default {
       values: {},
       title: 'plugins',
       show: false,
-	  showlogin:false,
+      showlogin: false,
       page: 1,
       ispageone: true,
-	  input: {
-	  username: '',
-	  password: ''
-	  },
+      input: {
+        username: '',
+        password: ''
+      },
       information: {
         'pluginname': '',
         'authors': {},
