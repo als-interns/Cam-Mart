@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-    <h1> {{ title }} </h1>
-    <div class="modal-mask" v-if="show">
+	<div class="modal-mask" v-if="show">
     <div class="modal-box" style="padding:20px;">
       <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
         <div>
@@ -18,6 +17,15 @@
         <p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
       </div>
     </div>
+	<div class="header">
+	  <div class="top">
+	    <ul class="navigation">
+		<li class="login"> <button>Login</button></li>
+		<li><button>Logout</button></li>
+		</ul>
+	  </div>
+    <h1> {{ title }} </h1>
+	</div>
     <div class="plugin-boxes">
     <li v-for="item in values._items" style="list-style: none;">
     <button class="plugins" v-on:click="show = true; displayinfo(item)">
@@ -165,5 +173,19 @@ cursor: pointer;
 }
 .plugin-boxes{
 overflow-y:scroll;
+}
+.top{
+text-align:right;
+background-color: #d4d4d4;
+}
+.navigation li{
+display: inline-block;
+text-align:right;
+padding: 10px 5px 10px 0px;
+}
+.top button{
+background-color:#f2f2f2;
+border-radius:5px;
+padding: 5px;
 }
 </style>
