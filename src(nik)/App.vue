@@ -49,7 +49,7 @@
     </div>
     <div class = "pages">
     <button class="back" v-bind:class="{'page1':ispageone }" v-on:click="backpage();"> &lt;--Previous Page </button>
-    {{ page }}
+     page {{ page }}
     <button class="next" v-on:click="page += 1; ispageone = false"> Next Page--> </button>
     </div>
   </div>
