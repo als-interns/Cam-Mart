@@ -7,12 +7,15 @@
         <div>
         <p class="title"><b>{{ information.pluginname }}</b></p>
         <p>by:</p>
-        <li class='theauthors' v-for="author in information.authors"> {{ author }}, </li>
+        <li class='theauthors' v-for="author in information.authors" style="display: inline-block;"> {{ author }}, </li>
         <p>Version {{ information.version }} </p>
         <p style="font-size:14px">Created on {{ information.datecreated }},<br> last updated on {{ information.dateupdated }}
         <hr>
         </div>
         <p> {{ information.desc }} </p>
+        <p style="display: inline-block;"> Key-Words:&nbsp
+        <li v-for="keys in information.keywords" style="display: inline-block; text-transform: capitalize;"> {{ keys }},&nbsp </li>
+        </p>
         <p>Install by: {{ information.install }} </p>
         <p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
       </div>
@@ -74,6 +77,7 @@ export default {
       information: {
         'pluginname': '',
         'authors': {},
+        'keywords': {},
         'etag': '',
         'id': '',
         'version': '',
@@ -92,6 +96,7 @@ export default {
         this.information.install = plugin.installuri
         this.information.desc = plugin.documentation.description
         this.information.datecreated = plugin._created
+        this.information.keywords = plugin.documentation.keywords
         // make request for the display info for a plugin
       },
       backpage: function () {
