@@ -7,15 +7,14 @@
         <div>
         <p class="title"><b>{{ information.pluginname }}</b></p>
         <p>by:</p>
-        <li class='theauthors' v-for="author in information.authors" style="display: inline-block;"> {{ author }}, </li>
+        <li v-bind:key="author" class='theauthors' v-for="author in information.authors" style="display: inline-block;"> {{ author }}, </li>
         <p>Version {{ information.version }} </p>
         <p style="font-size:14px">Created on {{ information.datecreated }},<br> last updated on {{ information.dateupdated }}
         <hr>
         </div>
         <p> {{ information.desc }} </p>
-        <p style="display: inline-block;"> Key-Words:&nbsp
-        <li v-for="keys in information.keywords" style="display: inline-block; text-transform: capitalize;"> {{ keys }},&nbsp </li>
-        </p>
+        <p style="display: inline-block;"> Key-Words:&nbsp;
+        <li v-bind:key="keys" v-for="keys in information.keywords" style="display: inline-block; text-transform: capitalize;"> {{ keys }},&nbsp; </li>
         <p>Install by: {{ information.install }} </p>
         <p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
       </div>
@@ -41,7 +40,7 @@
     <h1> {{ title }} </h1>
     </div>
     <div class="plugin-boxes">
-    <li v-for="item in values._items" style="list-style: none;">
+    <li v-bind:key="item._id" v-for="item in values._items" style="list-style: none;">
     <button class="plugins" v-on:click="show = true; displayinfo(item)">
       {{ item.name }}
     </button>
