@@ -45,16 +45,7 @@
       {{ item.name }}
     </button>
     </li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <p v-if="show"> {{ display }}
-    <button v-on:click="show = false"> nX</button>
-=======
     </div>
->>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
-=======
-    </div>
->>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
     <div class = "pages">
     <button class="back" v-bind:class="{'page1':ispageone }" v-on:click="backpage();"> &lt;--Previous Page </button>
      page {{ page }}
@@ -65,9 +56,7 @@
 
 <script>
 import axios from 'axios'
-
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-
 export default {
   name: 'App',
   data () {
@@ -122,7 +111,6 @@ export default {
       .then(response => (this.values = response.data))
   }
 }
-
 </script>
 
 <style>
@@ -143,7 +131,6 @@ text-align: left;
 background-color:#808080;
 color:white;
 }
-
 .plugins:active{
 background-color:#666666;
 }
@@ -194,7 +181,7 @@ text-align:center;
 font-size:30px;
 }
 .theauthors{
-distplay:inline;
+display:inline;
 list-style:none;
 }
 button{
@@ -223,6 +210,4 @@ margin:10px;
 .loginbtn{
 margin:10px;
 }
-/////////
-
 </style>

@@ -9,10 +9,6 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 
-Vue.component('modal', {
-  template: '#modal-template'
-})
-
 new Vue({
   el: '#app',
   router,
