@@ -47,8 +47,12 @@
     </li>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <p v-if="show"> {{ display }}
     <button v-on:click="show = false"> nX</button>
+=======
+    </div>
+>>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
 =======
     </div>
 >>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
@@ -223,6 +227,9 @@ margin:10px;
 .loginbtn{
 margin:10px;
 }
+<<<<<<< HEAD
 /////////
+=======
+>>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
 
 </style>
