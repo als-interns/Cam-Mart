@@ -1,22 +1,25 @@
 <template>
   <div id="app">
     <router-view/>
+	
     <div class="modal-mask" v-if="show">
+	
     <div class="modal-box" style="padding:20px;">
+	
       <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
         <div>
         <p class="title"><b>{{ information.pluginname }}</b></p>
-        <p>by:</p>
-        <li v-bind:key="author" class='theauthors' v-for="author in information.authors" style="display: inline-block;"> {{ author }}, </li>
-        <p>Version {{ information.version }} </p>
-        <p style="font-size:14px">Created on {{ information.datecreated }},<br> last updated on {{ information.dateupdated }}
+        <p class="text">by:</p>
+        <li v-bind:key="author" class='theauthors text' v-for="author in information.authors" style="display: inline-block;"> {{ author }}, </li>
+        <p class="text">Version {{ information.version }} </p>
+        <p class="text" style="font-size:14px">Created on {{ information.datecreated }},<br> last updated on {{ information.dateupdated }}
         <hr>
         </div>
-        <p> {{ information.desc }} </p>
-        <p style="display: inline-block;"> Key-Words:&nbsp;
-        <li v-bind:key="keys" v-for="keys in information.keywords" style="display: inline-block; text-transform: capitalize;"> {{ keys }},&nbsp; </li>
-        <p>Install by: {{ information.install }} </p>
-        <p>id: {{ information.id }}<br> etag: {{ information.etag }} </p>
+        <p class="text"> {{ information.desc }} </p>
+        <p class="text" style="display: inline-block;"> Key-Words:&nbsp;
+        <li class="text" v-bind:key="keys" v-for="keys in information.keywords" style="display: inline-block; text-transform: capitalize;"> {{ keys }},&nbsp; </li>
+        <p class="text">Install by: {{ information.install }} </p>
+        <p class="text">id: {{ information.id }}<br> etag: {{ information.etag }} </p>
       </div>
     </div>
     <div class="modal-mask" v-if="showlogin">
@@ -41,28 +44,15 @@
     </div>
     <div class="plugin-boxes">
     <li v-bind:key="item._id" v-for="item in values._items" style="list-style: none;">
-    <button class="plugins" v-on:click="show = true; displayinfo(item)">
+    <button class="button" v-on:click="show = true; displayinfo(item)">
       {{ item.name }}
     </button>
     </li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <p v-if="show"> {{ display }}
-    <button v-on:click="show = false"> nX</button>
-=======
     </div>
->>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
-=======
-    </div>
->>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
-=======
-    </div>
->>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
     <div class = "pages">
-    <button class="back" v-bind:class="{'page1':ispageone }" v-on:click="backpage();"> &lt;--Previous Page </button>
-     page {{ page }}
-    <button class="next" v-on:click="page += 1; ispageone = false"> Next Page--> </button>
+    <button class="back pagebtn text" v-bind:class="{'page1':ispageone }" v-on:click="backpage();"> &lt;--Previous Page </button>
+    <span class="text"> page {{ page }} </span>
+    <button class="next pagebtn text" v-on:click="page += 1; ispageone = false"> Next Page--> </button>
     </div>
   </div>
 </template>
@@ -77,7 +67,7 @@ export default {
   data () {
     return {
       values: {},
-      title: 'plugins',
+      title: 'Plugins',
       show: false,
       showlogin: false,
       page: 1,
@@ -98,7 +88,7 @@ export default {
         'desc': '',
         'datecreated': ''
       },
-      displayinfo: function (plugin) {
+      displayinfo: function (plugin) { //prob wanna make a request to individual plugin?
         this.information.pluginname = plugin.name.substring(6)
         this.information.authors = plugin.documentation.authors
         this.information.etag = plugin._etag
@@ -122,7 +112,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://131.243.88.16:5000/plugins') // change this to official plugin link
+    axios.get('http://localhost:5000/plugins') // change this to official plugin link
       .then(response => (this.values = response.data))
   }
 }
@@ -160,6 +150,22 @@ text-align:center;
 .back{
 float:left;
 }
+.pagebtn{
+font-family: "proxima nova";
+    font-weight: 100;
+    font-size: 30px;
+    text-align: center;
+    color: #000000;
+    border: solid 2px #353535;
+    border-radius: 50px;
+    padding: 5px 10px;
+    transition-duration: 200ms;
+    -webkit-transition-duration: 200ms;
+}
+ .pagebtn:hover {
+    background-color: #353535;
+    color: #fff;
+}
 .page1{
 cursor: not-allowed !important;
 }
@@ -196,6 +202,7 @@ cursor: pointer;
 .title{
 text-align:center;
 font-size:30px;
+font-family: "proxima nova";
 }
 .theauthors{
 distplay:inline;
@@ -227,9 +234,35 @@ margin:10px;
 .loginbtn{
 margin:10px;
 }
-<<<<<<< HEAD
-/////////
-=======
->>>>>>> 3db6d2df29db68840b6b21aaa521a2013453e167
+body {
+    background: #EEF1F4 !important;
+    font-family: 'Lato', sans-serif !important;
+  }
+  .nav-background {
+    background: #353535;
+  }
+.button {
+    font-family: "proxima nova";
+    font-weight: 100;
+    font-size: 30px;
+    text-align: center;
+    color: #000000;
+    border: solid 2px #353535;
+    border-radius: 50px;
+    padding: 5px 10px;
+    transition-duration: 200ms;
+    -webkit-transition-duration: 200ms;
+	width:100%;
+  }
+  .button:hover {
+    background-color: #353535;
+    color: #fff;
+  }
+.text{
+    font-family: "proxima nova";
+    font-weight: 100;
+    font-size: 20px;
+    text-align: left;
+ }
 
 </style>
