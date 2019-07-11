@@ -1,15 +1,13 @@
 <template>
   <div id="app">
     <router-view/>
-	
+	<!-- plugin info element -->
     <div class="modal-mask" v-if="show">
-	
     <div class="modal-box" style="padding:20px;">
-	
       <button class="closer" v-on:click="show = false;" style="float:right;"><b>X</b></button>
         <div>
         <p class="title"><b>{{ information.pluginname }}</b></p>
-        <p class="text">by:</p>
+        <span class="text">by:</span>
         <li v-bind:key="author" class='theauthors text' v-for="author in information.authors" style="display: inline-block;"> {{ author }}, </li>
         <p class="text">Version {{ information.version }} </p>
         <p class="text" style="font-size:14px">Created on {{ information.datecreated }},<br> last updated on {{ information.dateupdated }}
@@ -22,6 +20,7 @@
         <p class="text">id: {{ information.id }}<br> etag: {{ information.etag }} </p>
       </div>
     </div>
+	<!-- login template display -->
     <div class="modal-mask" v-if="showlogin">
         <div class="modal-box">
         <button class="closer" v-on:click="showlogin = false;input.username='';input.password='';" style="float:right;"><b>X</b></button>
@@ -33,6 +32,7 @@
         <button class="loginbtn">Login!</button>
     </div>
     </div>
+	<!-- top -->
     <div class="header">
       <div class="top">
         <ul class="navigation">
@@ -43,12 +43,14 @@
     <h1> {{ title }} </h1>
     </div>
     <div class="plugin-boxes">
+	<!-- list of plugins -->
     <li v-bind:key="item._id" v-for="item in values._items" style="list-style: none;">
     <button class="button" v-on:click="show = true; displayinfo(item)">
       {{ item.name }}
     </button>
     </li>
     </div>
+	<!-- pagination template/test -->
     <div class = "pages">
     <button class="back pagebtn text" v-bind:class="{'page1':ispageone }" v-on:click="backpage();"> &lt;--Previous Page </button>
     <span class="text"> page {{ page }} </span>
@@ -59,9 +61,16 @@
 
 <script>
 import axios from 'axios'
-
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-
+/*
+vales - stores the request
+title - basically the header
+show - t/f to show plugin info box
+show login - t/f to show login
+page - pages (not working, just a template)
+ispageone -  boolean to prevent from going into negative pages
+input - login input(leared when login is closed)
+information - info to display for a plugin
+*/
 export default {
   name: 'App',
   data () {
@@ -72,6 +81,7 @@ export default {
       showlogin: false,
       page: 1,
       ispageone: true,
+	  test: {},
       input: {
         username: '',
         password: ''
@@ -88,8 +98,11 @@ export default {
         'desc': '',
         'datecreated': ''
       },
-      displayinfo: function (plugin) { //prob wanna make a request to individual plugin?
-        this.information.pluginname = plugin.name.substring(6)
+      displayinfo: function (plugin) {
+        var requestURL ="http://cam.lbl.gov:5000/pluginpackages?where={%22name%22:%22" + plugin.name + "%22}"
+	    axios.get(requestURL) 
+        .then(response => (this.test = response.data))
+        this.information.pluginname = plugin.name
         this.information.authors = plugin.documentation.authors
         this.information.etag = plugin._etag
         this.information.id = plugin._id
@@ -99,7 +112,6 @@ export default {
         this.information.desc = plugin.documentation.description
         this.information.datecreated = plugin._created
         this.information.keywords = plugin.documentation.keywords
-        // make request for the display info for a plugin
       },
       backpage: function () {
         if (this.page !== 1) {
@@ -112,7 +124,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://localhost:5000/plugins') // change this to official plugin link
+    axios.get('http://localhost:9000/cam')
       .then(response => (this.values = response.data))
   }
 }
@@ -124,10 +136,10 @@ export default {
 background-color:#fafafa;
 border-style:groove;
 color:black;
-margin: -1px;
+margin: 0px;
 height:50px;
 width:100%;
-padding-right:100px;
+padding-right:10px;
 box-sizing: border-box;
 font-size: 24px;
 cursor:pointer;
@@ -152,19 +164,19 @@ float:left;
 }
 .pagebtn{
 font-family: "proxima nova";
-    font-weight: 100;
-    font-size: 30px;
-    text-align: center;
-    color: #000000;
-    border: solid 2px #353535;
-    border-radius: 50px;
-    padding: 5px 10px;
-    transition-duration: 200ms;
-    -webkit-transition-duration: 200ms;
+font-weight: 100;
+font-size: 30px;
+text-align: center;
+color: #000000;
+border: solid 2px #353535;
+border-radius: 50px;
+padding: 0px 7px;
+transition-duration: 200ms;
+-webkit-transition-duration: 200ms;
 }
- .pagebtn:hover {
-    background-color: #353535;
-    color: #fff;
+.pagebtn:hover {
+background-color: #353535;
+color: #fff;
 }
 .page1{
 cursor: not-allowed !important;
@@ -191,13 +203,19 @@ overflow: auto;
 line-height: auto;
 }
 .closer{
-border-radius: 100px;
+border-radius: 50%;
 background-color: #ff0000;
 border-style:solid;
+height: 28px;
+width: 28px;
 }
 .closer:hover{
 background-color:#bd0000;
 cursor: pointer;
+}
+.closer b{
+position:relative;
+margin: auto;
 }
 .title{
 text-align:center;
@@ -235,34 +253,34 @@ margin:10px;
 margin:10px;
 }
 body {
-    background: #EEF1F4 !important;
-    font-family: 'Lato', sans-serif !important;
-  }
-  .nav-background {
-    background: #353535;
-  }
+background: #EEF1F4 !important;
+font-family: 'Lato', sans-serif !important;
+}
+.nav-background {
+background: #353535;
+}
 .button {
-    font-family: "proxima nova";
-    font-weight: 100;
-    font-size: 30px;
-    text-align: center;
-    color: #000000;
-    border: solid 2px #353535;
-    border-radius: 50px;
-    padding: 5px 10px;
-    transition-duration: 200ms;
-    -webkit-transition-duration: 200ms;
-	width:100%;
-  }
-  .button:hover {
-    background-color: #353535;
-    color: #fff;
-  }
+font-family: "proxima nova";
+font-weight: 100;
+font-size: 30px;
+text-align: center;
+color: #000000;
+border: solid 2px #353535;
+border-radius: 10px;
+padding: 0px 0px;
+transition-duration: 200ms;
+-webkit-transition-duration: 200ms;
+width:100%;
+}
+.button:hover {
+background-color: #353535;
+color: #fff;
+}
 .text{
-    font-family: "proxima nova";
-    font-weight: 100;
-    font-size: 20px;
-    text-align: left;
- }
+font-family: "proxima nova";
+font-weight: 100;
+font-size: 20px;
+text-align: left;
+}
 
 </style>
