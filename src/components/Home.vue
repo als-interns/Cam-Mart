@@ -73,9 +73,6 @@ export default {
 	  }
 	  }
     },
-	components: {
-		
-	},
     methods: {
 	  pageChange(page){
 		this.$router.push({name: 'home', params: {page: page}})
