@@ -39,7 +39,7 @@ export default {
 			PluginInfo: {info:"error"},
 			Test: '',
 			name: this.$route.params.name,
-			link: 'http://localhost:9000/cam/' + this.$route.params.name + '/'
+			link: 'http://localhost:9000/cam/' + this.$route.params.name
 		}
 	},
 	methods: {
@@ -55,7 +55,7 @@ export default {
 	  })
 	}
 }
-// [/\()}{]
+// [ /\()}{ ]
 </script>
 
 <style>
