@@ -5,6 +5,7 @@ import Test from '@/components/Test'
 import PluginInfo from '@/components/PluginInfo'
 import Login from '@/components/Login'
 import Submit from '@/components/Submit'
+import Profile from '@/components/Profile'
 
 Vue.use(Router)
 
@@ -39,6 +40,10 @@ export default new Router({
 	{
 	path: '/Submit',
 	component: Submit
+	},
+	{
+	path: '/Profile',
+	component: Profile
 	},
   ]
 })
