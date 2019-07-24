@@ -20,7 +20,7 @@
 				<!-- <p> Test
 				{{ PluginInfo }}
 				<hr>
-				{{ link }} 
+				{{ link }}
 				<hr>
 				{{ Test }}
 				<hr>

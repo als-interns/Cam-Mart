@@ -19,7 +19,7 @@
 	<div class="text-center"> 
 		<b-spinner v-if="values.test" label="Spinning"></b-spinner>
 	</div>
-	<div 
+	<div>
 	<b-pagination
 		align="center"
 		v-model="page"
@@ -30,22 +30,17 @@
 		>
 	</b-pagination>
 	</div>
-	
 	</div>
-	
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 /*
-values - stores the request
-title - basically the header
-show - boolean to show plugin info box
-showlogin - boolean to show login
-page - pages (not working, just a template)
-ispageone - boolean by default is true to prevent from going into negative pages
-loggedin - boolean
+perpage - items per page
+values - stored request
+selected - the individual plugin info 
+fields - fields for the table
 */
 export default {
   name: 'Home',
@@ -53,11 +48,8 @@ export default {
     return {
 	  perpage: 5,
       values: {test:"true"},
-      showlogin: false,
       page: this.$route.params.page,
-      ispageone: true,
 	  loggedin: false,
-	  showsubmit: false,
       user: '',
 	  selected:{},
 	  fields: {
@@ -82,9 +74,9 @@ export default {
 		this.$router.push({name: 'plugin', params: {name: this.selected[0].name}})
      }
 	},
-  mounted () {
-    axios.get('http://localhost:9000/cam')
-      .then(response => (this.values = response.data))
+	mounted () {
+		axios.get('http://localhost:9000/cam')
+		.then(response => (this.values = response.data))
   }
 }
 

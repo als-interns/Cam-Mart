@@ -13,6 +13,7 @@
 </template>
 
 <script>
+// USE OAuth2
 export default {
   name: 'Login',
   data () {

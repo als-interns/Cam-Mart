@@ -32,20 +32,6 @@
 				<b-alert v-model="authNoInput" variant="danger" dismissible> Has to have at least 1 author (don't forget to click "add") </b-alert>
 			<hr>
 		</div> 
-<!-- plugins  -->
-		<div> 
-			<hr>
-				<p> Plugins: </p>
-				<b-table bordered thead-class="hidden_header" small :items="input.Plugins" :fields=fields>
-					<template slot="remove" slot-scope="row">
-						<b-button small @click="doadeleteplugins(row.item.id)" > &times </b-button> 
-					</template>						
-				</b-table>
-				<b-form-input v-model="plugin" placeholder="Add a Plugin" />
-				<b-button v-on:click="input.Plugins.push({name:plugin, id: input.Plugins.length}), plugin=''"> Add </b-button> 
-				<b-alert v-model="plugNoInput" variant="danger" dismissible> Atleast 1 </b-alert>
-			<hr>
-		</div> 
 <!-- key words -->
 		<div> 
 			<hr>
@@ -75,7 +61,7 @@ error[1] - version
 error[2] - description
 error[3] - install
 error[4] - authors
-error[5] - plugins
+error[5] - plugins ( gone )
 error[6] - keywords
 Compiled - the JSON sent
 
@@ -131,12 +117,8 @@ export default{
 		},
 		compileInfo(){
 			if (this.errorCheck(this.input)) {
-				var plugins = [];
 				var keywords = [];
 				var authors = [];
-				for(var i = 0; i < this.input.Plugins.length; i++){
-					plugins.push(this.input.Plugins[i].name)
-				}
 				for(var i = 0; i < this.input.Authors.length; i++){
 					authors.push(this.input.Authors[i].name)
 				}
@@ -145,7 +127,6 @@ export default{
 				}
 				this.Compiled= {
 					name: this.input.name,
-					plugins: plugins,
 					documentation: {
 						description: this.input.Description,
 						keywords: keywords,
@@ -153,8 +134,12 @@ export default{
 						version: this.input.Version},
 					installuri: this.input.Install
 				}
-				
-					//axios.post('http://localhost:9000/cam', this.Compiled);
+				axios.post('http://localhost:9000/cam', this.Compiled)
+				.catch(error => {
+					if(error == 'Error: Request failed with status code 401'){
+						this.$router.push({name:'Login'})
+					}
+				});
 			}
 		},
 		errorCheck(input){
@@ -192,13 +177,6 @@ export default{
 			}else{
 				this.errors[4] = 1;
 				this.authNoInput = true;
-			}
-			if(input.Plugins.length > 0){
-				this.errors[5] = 0;
-				this.plugNoInput = false;
-			}else{
-				this.errors[5] = 1;
-				this.plugNoInput = true;
 			}
 			if(input.Key_Words.length > 0){
 				this.errors[6] = 0;
