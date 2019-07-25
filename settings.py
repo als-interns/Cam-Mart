@@ -2,8 +2,8 @@ MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
 
 # Skip these if your db has no auth. But it really should.
-# MONGO_USERNAME = '<your username>'
-# MONGO_PASSWORD = '<your password>'
+#MONGO_USERNAME = '<your username>'
+#MONGO_PASSWORD = '<your password>'
 
 MONGO_DBNAME = 'cam-mart'
 
@@ -11,7 +11,6 @@ MONGO_DBNAME = 'cam-mart'
 # (if you omit this line, the API will default to ['GET'] and provide
 # read-only access to the endpoint).
 RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
-
 # Enable reads (GET), edits (PATCH), replacements (PUT) and deletes of
 # individual items  (defaults to read-only item access).
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
@@ -24,12 +23,6 @@ schema = {
         'minlength': 1,
         'maxlength': 100,
         'unique': True,
-        'required': True,
-    },
-    'plugins': {
-        'type': 'list',
-        'schema': {'type':'string'},
-        'minlength': 1,
         'required': True,
     },
     # # 'role' is a list, and can only contain values from 'allowed'.
@@ -54,6 +47,35 @@ schema = {
     },
 }
 
+accountschema = {
+    'username': {
+        'type': 'string',
+        'unique': True,
+        'required': True,
+        'minlength': 5,
+        'maxlength': 20
+    },
+    'email': {
+        'type': 'string',
+        'unique': True,
+        'required': True,
+    },
+    'password': {
+        'required': True,
+        'type': 'string',
+        'minlength': 8,
+        'maxlength': 18
+    },
+    'role': {
+        'type':'string',
+        'allowed': ["member", "admin"]
+    },
+    'pluginsowned': {
+        'type': 'list',
+        'schema': {'type': 'string'}
+    }
+}
+
 pluginpackages = {
     # 'title' tag used in item links. Defaults to the resource title minus
     # the final, plural 's'
@@ -64,7 +86,7 @@ pluginpackages = {
     # additional read-only entry point. This way consumers can also perform
     # GET requests at '/pluginpackages/<name>'.
     'additional_lookup': {
-        'url': 'regex("[\w]+")', # TODO: modify to allow '.'
+        'url': 'regex("[\w]+")',  #TODO: modify to allow '.'
         'field': 'name'
     },
 
@@ -74,10 +96,26 @@ pluginpackages = {
 
     # most global settings can be overridden at resource level
     'resource_methods': ['GET', 'POST', 'DELETE'],
-
+    'public_methods': ['GET'],
+    'public_item_methods': ['GET'],
     'schema': schema
 }
 
+accounts = {
+    'additional_lookup': {
+        'url': 'regex("[\w]+")',
+        'field': 'username'
+    },
+    'cache_control': '',
+    'cache_expires': 0,
+    'allowed_roles': ['admin', 'superuser'],
+    'public_methods': ['POST'],
+    'resource_methods': ['GET', 'POST', 'DELETE'],
+    'public_item_methods': ['POST'],
+    'schema': accountschema,
+}
+
 DOMAIN = {
+    'accounts': accounts,
     'pluginpackages': pluginpackages,
 }
