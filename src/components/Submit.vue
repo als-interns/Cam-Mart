@@ -132,9 +132,10 @@ export default{
 						keywords: keywords,
 						authors: authors,
 						version: this.input.Version},
-					installuri: this.input.Install
+					installuri: this.input.Install,
+					token: this.$store.state.token
 				}
-				axios.post('http://localhost:9000/cam', this.Compiled)
+				axios.post('http://localhost:9000/addplugin', this.Compiled)
 				.catch(error => {
 					if(error == 'Error: Request failed with status code 401'){
 						this.$router.push({name:'Login'})
@@ -195,8 +196,14 @@ export default{
 				alert('There has been an error! Please check your input.')
 			}
 			return correct;
-		},
-	}
+		}
+	},
+	/*
+	mounted: function () {
+		if(this.$store.state.user == 'none'){
+			this.$router.push({name:'Login'})
+		}	
+	}*/
 }
 
 </script>
