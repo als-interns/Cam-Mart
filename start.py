@@ -1,45 +1,59 @@
 from eve import Eve
-from eve.auth import BasicAuth
+from eve.auth import TokenAuth
+import requests
 from eve.io.mongo import Validator
 from flask import request
 import json
+import jwt
+import time
+from eve.methods.post import post_internal
 import bcrypt
 from redis import StrictRedis
 
-class MyBasicAuth(BasicAuth):
-    def check_auth(self, username, password, allowed_roles, resource, method):
-        if method == 'GET' and not resource == 'accounts':
-            return True
-        if resource == 'pluginpackages' and method == 'POST':
-            user = app.data.driver.db['accounts']
-            user = user.find_one({'username': username, 'password': password})
-            if user:
-                return True
-            else:
-                return False
-        elif resource == 'accounts' and method == 'POST':
-            return True
-        elif resource == 'login' and method == 'POST':
-            return True
-        else:
-            return False
+secret_key = 'thesecretkey'
+
+CLIENT_ID = ''
+CLIENT_SECRET = ''
 
 
-app = Eve(auth=MyBasicAuth, settings='settings.py')
+
+
+app = Eve(settings='settings.py', )
+
 
 
 @app.route('/login', methods=['POST'])
 def login():
     info = request.data
-    #info = info.decode('utf-8') <-- converts to str, not necesary
     info = json.loads(info)
     user = app.data.driver.db['accounts']
     user = user.find_one(info)
     if user:
         print(info['username'] + ' has logged in')
-        return 'ok'
+        return jwt.encode({'user': info['username'], 'exp': int(time.time()) + 1200}, secret_key)
     else:
-        print('someone failedto login')
+        print('someone failed to login')
+        return 'fail'
+
+
+
+@app.route('/addplugin', methods=['POST'])
+def addplugin():
+    info = json.loads(request.data)
+    try:
+        token = info['token']
+        if jwt.decode(token, secret_key):
+            del info['token']
+            #post to db
+            try:
+                post_internal('pluginpackages', info)
+                # requests.post('http://127.0.0.1:5000/pluginpackages', json.dumps(info), headers={'Content-Type': 'application/json'})
+            except:
+                return 'error'
+            return 'success'
+        else:
+            return 'token fail'
+    except:
         return 'fail'
 
 
