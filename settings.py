@@ -6,7 +6,7 @@ MONGO_PORT = 27017
 #MONGO_PASSWORD = '<your password>'
 
 MONGO_DBNAME = 'cam-mart'
-
+HTTP_AUTH_METHOD = 'none'
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
 # (if you omit this line, the API will default to ['GET'] and provide
 # read-only access to the endpoint).
@@ -58,10 +58,14 @@ accountschema = {
     'email': {
         'type': 'string',
         'unique': True,
-        'required': True,
+    },
+    'id':{
+    'type':'string',
+    },
+    'idprovider': {
+
     },
     'password': {
-        'required': True,
         'type': 'string',
         'minlength': 8,
         'maxlength': 18
@@ -72,11 +76,14 @@ accountschema = {
     },
     'pluginsowned': {
         'type': 'list',
-        'schema': {'type': 'string'}
+        'schema': {'type': 'string',
+                   'default': 'none'
+                   }
     }
 }
 
 pluginpackages = {
+    'http_auth_method': 'none',
     # 'title' tag used in item links. Defaults to the resource title minus
     # the final, plural 's'
     # 'item_title': 'pluginpackage',
@@ -102,13 +109,14 @@ pluginpackages = {
 }
 
 accounts = {
+    'http_auth_method': 'none',
     'additional_lookup': {
         'url': 'regex("[\w]+")',
         'field': 'username'
     },
     'cache_control': '',
     'cache_expires': 0,
-    'allowed_roles': ['admin', 'superuser'],
+    'allowed_roles': ['admin'],
     'public_methods': ['POST'],
     'resource_methods': ['GET', 'POST', 'DELETE'],
     'public_item_methods': ['POST'],
@@ -116,6 +124,6 @@ accounts = {
 }
 
 DOMAIN = {
-    'accounts': accounts,
+    #'accounts': accounts,
     'pluginpackages': pluginpackages,
 }
