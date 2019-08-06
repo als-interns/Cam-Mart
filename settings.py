@@ -1,4 +1,4 @@
-MONGO_HOST = 'localhost'
+MONGO_HOST = 'mongodb'
 MONGO_PORT = 27017
 
 # Skip these if your db has no auth. But it really should.
@@ -45,6 +45,9 @@ schema = {
     'installuri': {
         'type': 'string'
     },
+    'submitter': {
+        'type': 'string'
+    }
 }
 
 accountschema = {
@@ -63,7 +66,8 @@ accountschema = {
     'type':'string',
     },
     'idprovider': {
-
+        'type': 'string',
+        'allowed':['cammart', 'google', 'orcid']
     },
     'password': {
         'type': 'string',
@@ -127,3 +131,5 @@ DOMAIN = {
     #'accounts': accounts,
     'pluginpackages': pluginpackages,
 }
+
+
