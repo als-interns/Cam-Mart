@@ -1,0 +1,22 @@
+version: '3'
+
+#volumes:
+
+services:
+    mongodb:
+        image: "mongo"
+    
+    pythonimage:
+        build: ./Cam-Mart-master
+        ports:
+            - "5000:5000"
+    
+    vue:
+        build: ./xicamspa
+        ports: 
+            - "8080:8080"
+    
+    nginx:
+        build: D:/nginx-1.17.1
+        ports:
+            - "9000:9000"
