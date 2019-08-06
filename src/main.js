@@ -7,16 +7,28 @@ import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import Vuex from 'vuex'
+import GAuth from 'vue-google-oauth2'
+
+
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
 
+const gauthOption = {
+		clientId: '978857662335-vf2tkju8rgvtqr6f1vqp6jh7948ovdsj.apps.googleusercontent.com',
+		prompt: 'select_account',
+}
+
+Vue.use(GAuth, gauthOption)
+
 const store =  new Vuex.Store({
 	state: {
 		user: 'none',
-		token: ''
+		token: '',
 	},
 	mutations: {
 		newUser(state, theuser) {

@@ -6,7 +6,7 @@ import PluginInfo from '@/components/PluginInfo'
 import Login from '@/components/Login'
 import Submit from '@/components/Submit'
 import Profile from '@/components/Profile'
-
+import CreateAccount from '@/components/CreateAccount'
 Vue.use(Router)
 
 export default new Router({
@@ -35,15 +35,20 @@ export default new Router({
 	},
 	{
 	path: '/login',
-	component: Login
+	component: Login,
+	name: 'Login'
 	},
 	{
 	path: '/Submit',
 	component: Submit
 	},
 	{
-	path: '/Profile',
+	path: '/Profile/:user',
 	component: Profile
 	},
+	{
+	path: '/CreateAccount',
+	component: CreateAccount
+	}
   ]
 })

@@ -1,6 +1,9 @@
 <template>
-  <div id="profile">
-	
+	<div id="profile">
+		<h1> {{ user }}'s Profile </h1>
+		<p> about </p>
+		<p> contributed plugins</p>
+		<p> {{ this.$gAuth.getAuthCode() }} </p>
 	</div>
 </template>
 
@@ -8,7 +11,7 @@
 export default{
 	data() {
 		return{
-		
+		user: this.$route.params.user
 		}
 	},
 	methods: {

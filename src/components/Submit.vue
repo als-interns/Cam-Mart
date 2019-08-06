@@ -133,7 +133,8 @@ export default{
 						authors: authors,
 						version: this.input.Version},
 					installuri: this.input.Install,
-					token: this.$store.state.token
+					token: this.$store.state.token,
+					submitter: this.$store.state.user
 				}
 				axios.post('http://localhost:9000/addplugin', this.Compiled)
 				.catch(error => {
