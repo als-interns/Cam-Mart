@@ -75,7 +75,7 @@ export default {
      }
 	},
 	mounted () {
-		axios.get('http://localhost:9000/cam')
+		axios.get('http://192.168.99.100:9000/cam')
 		.then(response => (this.values = response.data))
   }
 }

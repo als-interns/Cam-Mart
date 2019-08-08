@@ -136,7 +136,7 @@ export default{
 					token: this.$store.state.token,
 					submitter: this.$store.state.user
 				}
-				axios.post('http://localhost:9000/addplugin', this.Compiled)
+				axios.post('http://192.168.99.100:9000/addplugin', this.Compiled)
 				.catch(error => {
 					if(error == 'Error: Request failed with status code 401'){
 						this.$router.push({name:'Login'})

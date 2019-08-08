@@ -30,7 +30,7 @@ export default{
 				email: this.email,
 				password: this.password
 			}
-			axios.post('http://localhost:9000/users',compile)
+			axios.post('http://192.168.99.100:9000/users',compile)
 		}
 	}
 }

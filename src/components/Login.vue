@@ -36,7 +36,7 @@ export default {
 	methods: {
 		Login(){
 			//if(this.$store.state.user == 'none'){
-			axios.post('http://localhost:9000/login', {username:this.input.username, password:this.input.password})
+			axios.post('http://192.168.99.100:9000/login', {username:this.input.username, password:this.input.password})
 			.then(response => this.response = response.data)
 			//}
 		}
