@@ -1,18 +1,36 @@
 version: '3'
 
-#volumes:
+#mongodb still doesnt work
+
+volumes:
+    mongodata:
 
 services:
     mongodb:
-        image: "mongo"
+        container_name: 'mongodb'
+        image: mongo:3.6
+        expose:
+        - 27017
+        volumes:
+            - ./mongo:/data/db
+        ports:
+            - "27017:27017"
+        command: mongod
     
     pythonimage:
         build: ./Cam-Mart-master
+        restart: always
+        environment:
+            - MONGO_URI=mongodb://mongodb:27017/db
         ports:
             - "5000:5000"
+        links:
+            - mongodb
     
     vue:
         build: ./xicamspa
+        expose:
+            - 8080
         ports: 
             - "8080:8080"
     
