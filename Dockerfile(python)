@@ -7,6 +7,7 @@ RUN mkdir /app
 COPY ./start.py /app
 COPY ./settings.py /app
 COPY ./requirements.txt /app
+COPY ./test.py /app
 
 WORKDIR /app
 
