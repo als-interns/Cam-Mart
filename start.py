@@ -1,20 +1,35 @@
 from eve import Eve
-from eve.auth import TokenAuth
 import requests
-from eve.io.mongo import Validator
 from flask import request
 import json
 import jwt
 import time
 from eve.methods.post import post_internal
+import test
 
 secret_key = 'thesecretkey'
 
 CLIENT_ID = ''
 CLIENT_SECRET = ''
 
+needAuth = False  # false to disable auth for testing
 
 app = Eve(__name__, settings='settings.py')
+
+#o = requests.delete('http://127.0.0.1:5000/pluginpackages')
+
+
+@app.route('/testhere', methods=['GET', 'POST'])
+def testhere():
+    test.testpost()
+    return 'ok'
+
+
+@app.route('/users', methods=['POST'])
+def users():
+    info = json.loads(request.data)
+    post_internal('accounts', info)
+    return 'success'
 
 
 @app.route('/login', methods=['POST'])
@@ -36,6 +51,10 @@ def addplugin():
     info = json.loads(request.data)
     print(jwt.decode(info['token'], secret_key)['user'])
     print(not info['submitter'] == jwt.decode(info['token'], secret_key)['user'])
+    if not needAuth:
+        del info['token']
+        post_internal('pluginpackages', info)
+        return 'posted!'
     try:
         if not (info['submitter'] == jwt.decode(info['token'], secret_key)['user']):
             return 'submitter validation fail'
@@ -60,4 +79,3 @@ def addplugin():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
-

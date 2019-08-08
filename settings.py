@@ -1,3 +1,7 @@
+import os
+
+MONGO_URI = os.getenv('MONGO_URI')
+
 MONGO_HOST = 'mongodb'
 MONGO_PORT = 27017
 
@@ -46,7 +50,8 @@ schema = {
         'type': 'string'
     },
     'submitter': {
-        'type': 'string'
+        'type': 'string',
+        'default': 'person'
     }
 }
 
